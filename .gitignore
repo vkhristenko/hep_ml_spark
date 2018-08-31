@@ -102,3 +102,8 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# not to include any pngs
+*.png
+*.jpg
+*.jpeg
