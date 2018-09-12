@@ -3,8 +3,8 @@ import math
 from pyspark.sql import Row
 from pyspark.ml.linalg import Vectors
 
-import findspark
-findspark.init('/afs/cern.ch/work/m/migliori/public/spark2.3.1')
+#import findspark
+#findspark.init('/afs/cern.ch/work/m/migliori/public/spark2.3.1')
 
 def PFIso(p, DR, PtMap, subtractPt):
     if p.Pt() <= 0.: return 0.
@@ -276,4 +276,4 @@ def convert(event):
     # return the Row of low level features and high level features
     #
     
-    return Row(lfeatures=particles, hfeatures=hlf, label=row.label)
+    return Row(lfeatures=particles, hfeatures=hlf, label=event.label)

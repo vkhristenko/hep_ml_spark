@@ -16,6 +16,7 @@ if __name__ == "__main__":
 
     # we must have 4 args
     if len(sys.argv) != 5:
+        print sys.argv
         sys.exit("incorrect number of cli arguments")
 
     # get the path to data @eos
@@ -37,14 +38,22 @@ if __name__ == "__main__":
 
     logging.info("read in all the features' datasets")
 
+    # we need to select only these columns
+    requiredColumns = ["EFlowTrack", "MuonTight_size", "Electron_size", 
+                       "EFlowNeutralHadron", "EFlowPhoton", "Electron", 
+                       "MuonTight", "MissingET", "Jet"]
+
     # add a label and combine the data frames into 1
     label_qcd = 0
     label_ttbar = 1
     label_wjets = 2
-    tmp_qcd = events_qcd.withColumn("label", lit(label_qcd))
-    tmp_ttbar = events_ttbar.withColumn("label", lit(label_ttbar))
-    tmp_wjets = events_wjets.withColumn("label", lit(label_wjets))
-    features = tmp_qcd.union(tmp_ttbar).union(tmp_wjets)
+    tmp_qcd = events_qcd.select(requiredColumns)\
+        .toDF(*requiredColumns).withColumn("label", lit(label_qcd))
+    tmp_ttbar = events_ttbar.select(requiredColumns)\
+        .toDF(*requiredColumns).withColumn("label", lit(label_ttbar))
+    tmp_wjets = events_wjets.select(requiredColumns)\
+        .toDF(*requiredColumns).withColumn("label", lit(label_wjets))
+    events = tmp_qcd.union(tmp_ttbar).union(tmp_wjets)
 
     logging.info("performed the union of all the input datasets")
 
