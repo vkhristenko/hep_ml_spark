@@ -413,7 +413,7 @@ def convert2image(row):
     img = create3D(reduced)
 
     before_tolist = time.time()
-    l = img
+    l = img.tolist()
     end = time.time()
 
     print "Tiem to procss a Row before create3D: %3.3f" % (before_create3D - start)
