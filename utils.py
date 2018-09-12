@@ -276,7 +276,4 @@ def convert(event):
     # return the Row of low level features and high level features
     #
     
-    return Row(lfeatures=particles, hfeatures=hlf)
-    
-    #return only the high level features
-    #return Row(hfeatures=hlf)
+    return Row(lfeatures=particles, hfeatures=hlf, label=row.label)
