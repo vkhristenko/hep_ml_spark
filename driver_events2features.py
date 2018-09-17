@@ -55,6 +55,8 @@ if __name__ == "__main__":
         .toDF(*requiredColumns).withColumn("label", lit(label_wjets))
     events = tmp_qcd.union(tmp_ttbar).union(tmp_wjets)
 
+#    print "number of events = {nevents}".format(nevents = events.count())
+
     logging.info("performed the union of all the input datasets")
 
     # pipeline itself
