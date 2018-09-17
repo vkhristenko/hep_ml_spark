@@ -264,7 +264,7 @@ def convert(event):
     nJets = 0.
     nBjets = 0.
     for jet in event.Jet:
-        if jet.PT > 40 and abs(jet.Eta)<2.4:
+        if jet.PT > 30 and abs(jet.Eta)<2.6:
             nJets += 1
             HT += jet.PT
             if jet.BTag>0: 
