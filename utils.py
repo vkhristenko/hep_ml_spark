@@ -123,7 +123,7 @@ def mysign_func(v):
 ############################################
 
 def selection(event, TrkPtMap, NeuPtMap, PhotonPtMap):
-    # one electron or muon with pT> 15 GeV
+    # one electron or muon with pT> 23 GeV
     if event.Electron_size == 0 and event.MuonTight_size == 0: 
         return False, False, False
     foundMuon = None #[0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0, 0, 0, 0, 1, 1]
@@ -134,7 +134,7 @@ def selection(event, TrkPtMap, NeuPtMap, PhotonPtMap):
     #
     l = LorentzVector()
     for ele in event.Electron:
-        if ele.PT <= 25.: continue
+        if ele.PT <= 23.: continue
         #
         # Has to replace the TLorentzVector functionality
         #
@@ -143,13 +143,13 @@ def selection(event, TrkPtMap, NeuPtMap, PhotonPtMap):
         pfisoCh = PFIso(l, 0.3, TrkPtMap, True)
         pfisoNeu = PFIso(l, 0.3, NeuPtMap, False)
         pfisoGamma = PFIso(l, 0.3, PhotonPtMap, False)
-        if foundEle == None and (pfisoCh+pfisoNeu+pfisoGamma)<0.2:
+        if foundEle == None and (pfisoCh+pfisoNeu+pfisoGamma)<0.45:
             #foundEle.SetPtEtaPhiM(ele.PT, ele.Eta, ele.Phi, 0.)
             foundEle = [l.E(), l.Px(), l.Py(), l.Pz(), l.Pt(), l.Eta(), l.Phi(),
                         0., 0., 0., pfisoCh, pfisoGamma, pfisoNeu,
                         0., 0., 0., 1., 0., float(ele.Charge)]
     for muon in event.MuonTight:
-        if muon.PT <= 25.: continue
+        if muon.PT <= 23.: continue
         #
         # Has to replace the TLorentzVector functionality
         #
@@ -158,7 +158,7 @@ def selection(event, TrkPtMap, NeuPtMap, PhotonPtMap):
         pfisoCh = PFIso(l, 0.3, TrkPtMap, True)
         pfisoNeu = PFIso(l, 0.3, NeuPtMap, False)
         pfisoGamma = PFIso(l, 0.3, PhotonPtMap, False)
-        if foundMuon == None and (pfisoCh+pfisoNeu+pfisoGamma)<0.2:
+        if foundMuon == None and (pfisoCh+pfisoNeu+pfisoGamma)<0.45:
             foundMuon = [l.E(), l.Px(), l.Py(), l.Pz(), l.Pt(), l.Eta(), l.Phi(),
                          0., 0., 0., pfisoCh, pfisoGamma, pfisoNeu,
                          0., 0., 0., 0., 1., float(muon.Charge)]
