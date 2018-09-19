@@ -38,6 +38,16 @@ if __name__ == "__main__":
 
     logging.info("read in all the features' datasets")
 
+    nqcd = events_qcd.count()
+    nttbar = events_ttbar.count()
+    nwjets = events_wjets.count()
+
+    # save the stats
+    path_to_stats = "/afs/cern.ch/work/v/vkhriste/public/hep_ml_pipeline_stats.csv"
+    f = open(path_to_stats, "w")
+    f.write("{nqcd}, {nttbar}, {nwjets}\n".format(nqcd=nqcd, nttbar=nttbar, nwjets=nwjets))
+    f.close()
+
     # we need to select only these columns
     requiredColumns = ["EFlowTrack", "MuonTight_size", "Electron_size", 
                        "EFlowNeutralHadron", "EFlowPhoton", "Electron", 
